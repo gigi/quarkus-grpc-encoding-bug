@@ -4,6 +4,42 @@ This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
 
+## gRPC Compression Bug Testing
+
+This repository demonstrates a bug in Quarkus gRPC server compression. See test results below.
+
+### Quick Test
+
+```bash
+# Start the server
+./mvnw quarkus:dev
+
+# In another terminal, run the compression test
+./test-compression.sh
+```
+
+### Bug Summary
+
+**Issue**: Server with `quarkus.grpc.server.compression=gzip` does NOT compress responses even when client accepts gzip.
+
+**Evidence**: When client sends `grpc-accept-encoding: gzip`, server responds WITHOUT `grpc-encoding: gzip` header.
+
+### Documentation
+
+- **[QUICK_START.md](QUICK_START.md)** - One command to reproduce the bug
+- **[FINAL_SUMMARY.md](FINAL_SUMMARY.md)** - Complete bug analysis
+- **[BUG_CONFIRMATION.md](BUG_CONFIRMATION.md)** - Detailed test results
+- **[TESTING_TOOLS.md](TESTING_TOOLS.md)** - Comparison of testing approaches
+- **[K6_TEST_README.md](K6_TEST_README.md)** - k6 load testing instructions
+
+### Test Files
+
+- `test-compression.sh` - Shell script using grpcurl (recommended)
+- `k6-grpc-test.js` - k6 load test script
+- JUnit tests in `src/test/java/org/acme/`
+
+---
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
