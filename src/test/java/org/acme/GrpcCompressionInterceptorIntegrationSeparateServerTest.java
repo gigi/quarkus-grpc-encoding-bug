@@ -35,8 +35,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * compression, server should not compress
  */
 @QuarkusTest
-@TestProfile(GrpcCompressionInterceptorIntegrationTest.GzipCompressionProfile.class)
-class GrpcCompressionInterceptorIntegrationTest {
+@TestProfile(GrpcCompressionInterceptorIntegrationSeparateServerTest.GzipCompressionProfile.class)
+class GrpcCompressionInterceptorIntegrationSeparateServerTest {
 
     @GrpcClient("system-service")
     Channel channel;
@@ -51,7 +51,7 @@ class GrpcCompressionInterceptorIntegrationTest {
         @Override
         public Map<String, String> getConfigOverrides() {
             return Map.of(
-                    "quarkus.grpc.server.use-separate-server", "false",
+                    "quarkus.grpc.server.use-separate-server", "true",
                     "quarkus.grpc.server.compression", "gzip",
                     "quarkus.grpc.clients.hello-service.host", "localhost",
                     "quarkus.grpc.clients.hello-service.port", "9000"
